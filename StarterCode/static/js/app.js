@@ -29,3 +29,33 @@ function createTable(datetime, city, state, country, shape, comment) {
 }
 
 createTable(datetime, city, state, country, shape, comment);
+
+// Filter Table button handler
+function handleFilter() {
+  // Select input value from the form
+  var enteredDate = d3.select("#datetime").node().value;
+  console.log(enteredDate);
+  console.log(data);
+
+  // Remove existing table
+  // d3.select("tbody").html("");
+
+  // Prevent refresh
+  d3.event.preventDefault();
+
+  // Using filter() to pass the function
+  var filteredData = data.filter(record => record.datetime === datetime);
+  console.log(filteredData);
+
+  // Call fuction with filter ()
+  //   var sightingsDate = data.filter(filteredDate);
+
+  //   // Display results
+  //   console.log(sightingsDate);
+
+  //   // Populate table with user's entered data
+  //   buildTable(filtertable);
+}
+
+// Add event listener for submit button
+d3.select("#filter-btn").on("click", handleFilter);
