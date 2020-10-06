@@ -1,7 +1,6 @@
 // from data.js
 var tableData = data;
 
-// YOUR CODE HERE!
 // Function to build table
 for (var i = 0; i < 111; i++) {
   var datetime = data[i].datetime;
@@ -12,10 +11,12 @@ for (var i = 0; i < 111; i++) {
   var comment = data[i].comment;
 }
 
+var table = d3.select("#ufo-table");
+var tbody = table.select("tbody");
+var trow;
+
 function createTable(datetime, city, state, country, shape, comment) {
-  var table = d3.select("#ufo-table");
-  var tbody = table.select("tbody");
-  var trow;
+
   for (var i = 0; i < 111; i++) {
     trow = tbody.append("tr");
     trow.append("td").text(data[i].datetime);
@@ -35,10 +36,10 @@ function handleFilter() {
   // Select input value from the form
   var enteredDate = d3.select("#datetime").node().value;
   console.log(enteredDate);
-  console.log(data);
+  // console.log(data);
 
   // Remove existing table
-  // d3.select("tbody").html("");
+  d3.select("tbody").html("");
 
   // Prevent refresh
   d3.event.preventDefault();
@@ -47,14 +48,18 @@ function handleFilter() {
   var filteredData = data.filter(record => record.datetime === datetime);
   console.log(filteredData);
 
-  // Call fuction with filter ()
-  //   var sightingsDate = data.filter(filteredDate);
+  // Display the filtered dataset
+  filteredData.forEach((report) => {
+    var row = tbody.append('tr');
 
-  //   // Display results
-  //   console.log(sightingsDate);
+    Object.entries(report).forEach(([key, value]) => {
+      console.log(key, value);
+      var cell = row.append('td');
+      cell.text(value);
+    });
+  });
 
-  //   // Populate table with user's entered data
-  //   buildTable(filtertable);
+
 }
 
 // Add event listener for submit button
